@@ -15,7 +15,6 @@ class ProductService {
   }
 
   create(name: string, amount: string): Promise<Product> {
-    console.log(name, amount);
     return this.model.create(name, amount);
   }
 }
