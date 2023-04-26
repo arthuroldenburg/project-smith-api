@@ -4,7 +4,7 @@ import OrderController from '../controller/order.controller';
 import ProductController from '../controller/product.controller';
 import UserController from '../controller/user.controller';
 import productMiddleware from '../middleware/product.middleware';
-// import validateLogin from '../middleware/login.middleware';
+import loginMiddleware from '../middleware/login.middleware';
 
 const router = Router();
 
@@ -28,7 +28,7 @@ router
 
 router
   .route('/login')
-  .post(userLogin.user);
+  .post(loginMiddleware, userLogin.user);
 
 // para uso de middleware é só colocar ele antes do controller
 

@@ -14,7 +14,16 @@ export const validateProduct = (name: string, amount: string) => {
   return { type: null, message: '' };
 };
 
-export default 'xablau';
+const loginVerify = Joi.object({
+  username: Joi.string().required(),
+  password: Joi.string().required(),
+});
+
+export const validateLogin = (username: string, password: string) => {
+  const { error } = loginVerify.validate({ username, password });
+  if (error) return { type: 400, message: error.message };
+  return { type: null, message: '' };
+};
 
 /* 
 const fieldsMissing = 'Some required fields are missing';
