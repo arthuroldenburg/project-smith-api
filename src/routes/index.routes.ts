@@ -3,6 +3,7 @@ import LoginController from '../controller/login.controller';
 import OrderController from '../controller/order.controller';
 import ProductController from '../controller/product.controller';
 import UserController from '../controller/user.controller';
+import productMiddleware from '../middleware/product.middleware';
 // import validateLogin from '../middleware/login.middleware';
 
 const router = Router();
@@ -15,7 +16,7 @@ const userLogin = new LoginController();
 router
   .route('/products')
   .get(productController.getAll)
-  .post(productController.create);
+  .post(productMiddleware, productController.create);
 
 router
   .route('/users')
