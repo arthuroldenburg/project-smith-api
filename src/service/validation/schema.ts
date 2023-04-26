@@ -25,6 +25,36 @@ export const validateLogin = (username: string, password: string) => {
   return { type: null, message: '' };
 };
 
+const userVerify = Joi.object({
+  username: Joi.string().min(3).required(),
+  vocation: Joi.string().min(3).required(),
+  level: Joi.number().min(1).required(),
+  password: Joi.string().min(8).required(),
+});
+
+const errorMessage = (err: any) => {
+  switch (err.message) {
+    case '"username" is required': return { type: 400, message: err.message };
+    case '"vocation" is required': return { type: 400, message: err.message };
+    case '"level" is required': return { type: 400, message: err.message };
+    case '"password" is required': return { type: 400, message: err.message };
+    default:
+      break;
+  }
+};
+
+const validateUser = (username: string, vocation: string, level: number, password: string) => {
+  const { error } = userVerify.validate({ username, vocation, level, password });
+  if (error) {
+    const err = errorMessage(error);
+    if (err) return err;
+    return { type: 422, message: error.message };
+  }
+  return { type: null, message: '' };
+};
+
+export default validateUser;
+
 /* 
 const fieldsMissing = 'Some required fields are missing';
 

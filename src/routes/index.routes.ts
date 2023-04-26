@@ -5,6 +5,7 @@ import ProductController from '../controller/product.controller';
 import UserController from '../controller/user.controller';
 import productMiddleware from '../middleware/product.middleware';
 import loginMiddleware from '../middleware/login.middleware';
+import userMiddleware from '../middleware/user.middleware';
 
 const router = Router();
 
@@ -20,7 +21,7 @@ router
 
 router
   .route('/users')
-  .post(userController.create);
+  .post(userMiddleware, userController.create);
 
 router
   .route('/orders')
