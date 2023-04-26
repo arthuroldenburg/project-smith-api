@@ -1,6 +1,7 @@
 import connection from '../models/connection';
 import UserModel from '../models/user.model';
 import User from '../interfaces/user.interface';
+import createToken from '../token/create.token';
 
 class UserService {
   model: UserModel;
@@ -9,9 +10,10 @@ class UserService {
     this.model = new UserModel(connection);
   }
 
-  async create(user: User): Promise<void> {
-    const userCreated = await this.model.create(user);
-    console.log(userCreated);
+  async create(user: User): Promise<string> {
+    await this.model.create(user);
+    const token = createToken(user.username);
+    return token;
   }
 }
 

@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
 import UserService from '../service/user.service';
 
 export default class UserController {
@@ -12,8 +11,7 @@ export default class UserController {
 
   async create(req: Request, res: Response): Promise<void> {
     const user = req.body;
-    await this.userService.create(user);
-    const token = jwt.sign(user.username, 'secret');
+    const token = await this.userService.create(user);
     res.status(201).json({ token });
   }
 }
