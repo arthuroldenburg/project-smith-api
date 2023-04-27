@@ -28,7 +28,7 @@ router
 router
   .route('/orders')
   .get(orderController.getAll)
-  .post(tokenMiddleware, orderMiddleware);
+  .post(tokenMiddleware, orderMiddleware, orderController.create);
 
 router
   .route('/login')

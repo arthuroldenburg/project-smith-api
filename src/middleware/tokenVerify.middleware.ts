@@ -8,6 +8,7 @@ const tokenVerify = (req: Request, res: Response, next: NextFunction) => {
   if (!token) return res.status(401).json({ message: 'Token not found' });
   try {
     const decoded = jwt.verify(token, secret);
+    res.locals.user = decoded;
     if (decoded) return next();
   } catch (error) {
     return res.status(401).json({ message: 'Invalid token' });

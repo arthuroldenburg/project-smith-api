@@ -32,7 +32,7 @@ const userVerify = Joi.object({
   password: Joi.string().min(8).required(),
 });
 
-const errorMessage = (err: any) => {
+const errorMessage = (err: Joi.ValidationError) => {
   switch (err.message) {
     case '"username" is required': return { type: 400, message: err.message };
     case '"vocation" is required': return { type: 400, message: err.message };

@@ -15,7 +15,6 @@ export default class LoginModel {
       [username, password],
     );
     const [row] = user;
-    console.log(row);
     if (row.length) return 'have';
     return 'not have';
   }
