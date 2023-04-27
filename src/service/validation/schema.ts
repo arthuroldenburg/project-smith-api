@@ -54,3 +54,18 @@ const validateUser = (username: string, vocation: string, level: number, passwor
 };
 
 export default validateUser;
+
+const orderVerify = Joi.object({
+  productsIds: Joi.array().required(),
+});
+
+export const validateOrder = (productsIds: number[]) => {
+  if (!productsIds) return { type: 400, message: '"productsIds" is required' };
+  const { error } = orderVerify.validate({ productsIds });
+  if (error) return { type: 422, message: error.message };
+  const numbers = productsIds.find((e) => typeof e !== 'number');
+  if (numbers || !productsIds.length) {
+    return { type: 422, message: '"productsIds" must include only numbers' };
+  }
+  return { type: null, message: '' };
+};

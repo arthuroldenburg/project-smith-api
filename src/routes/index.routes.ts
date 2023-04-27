@@ -6,13 +6,15 @@ import UserController from '../controller/user.controller';
 import productMiddleware from '../middleware/product.middleware';
 import loginMiddleware from '../middleware/login.middleware';
 import userMiddleware from '../middleware/user.middleware';
+import tokenMiddleware from '../middleware/tokenVerify.middleware';
+import orderMiddleware from '../middleware/order.middleware';
 
 const router = Router();
 
 const productController = new ProductController();
 const userController = new UserController();
 const orderController = new OrderController();
-const userLogin = new LoginController();
+const userLoginController = new LoginController();
 
 router
   .route('/products')
@@ -25,11 +27,12 @@ router
 
 router
   .route('/orders')
-  .get(orderController.getAll);
+  .get(orderController.getAll)
+  .post(tokenMiddleware, orderMiddleware);
 
 router
   .route('/login')
-  .post(loginMiddleware, userLogin.user);
+  .post(loginMiddleware, userLoginController.user);
 
 // para uso de middleware é só colocar ele antes do controller
 
